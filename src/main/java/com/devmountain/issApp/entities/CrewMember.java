@@ -1,5 +1,6 @@
 package com.devmountain.issApp.entities;
 
+import com.devmountain.issApp.dtos.CrewMemberDto;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,7 +17,7 @@ public class CrewMember {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long crew_id;
+    private Long crewId;
 
     @Column
     private String crewName;
@@ -27,22 +28,33 @@ public class CrewMember {
     @Column
     private String specialization;
 
-    @ManyToOne
-    @JsonBackReference
-    private User user;
+    @Column
+    private String mission;
+
+    @Column
+    private String crewPic;
+//    @ManyToOne
+//    @JsonBackReference
+//    private User user;
 
 
-//    public CrewMember(CrewMemberDto crewMemberDto){
-//        if(crewMemberDto.getCrewName() != null){
-//            this.crewName = crewMemberDto.getCrewName();
-//        }
-//    if(crewMemberDto.getCountry() != null){
-//            this.country = crewMemberDto.getCountry();
-//        }
-//    if(crewMemberDto.getSpecialization() != null){
-//            this.specialization = crewMemberDto.getSpecialization();
-//        }
-//    }
+    public CrewMember(CrewMemberDto crewMemberDto){
+        if(crewMemberDto.getCrewName() != null){
+            this.crewName = crewMemberDto.getCrewName();
+        }
+    if(crewMemberDto.getCountry() != null){
+            this.country = crewMemberDto.getCountry();
+        }
+    if(crewMemberDto.getSpecialization() != null){
+            this.specialization = crewMemberDto.getSpecialization();
+        }
+    if(crewMemberDto.getMission() != null){
+        this.specialization = crewMemberDto.getMission();
+    }
+    if(crewMemberDto.getCrewPic() != null){
+        this.crewPic = crewMemberDto.getCrewPic();
+    }
+    }
 
 
 }

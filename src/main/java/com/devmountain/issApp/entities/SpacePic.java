@@ -1,5 +1,6 @@
 package com.devmountain.issApp.entities;
 
+import com.devmountain.issApp.dtos.SpacePicDto;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,17 +25,24 @@ public class SpacePic {
     @Column(columnDefinition = "text")
     private String description;
 
+    @Column
+    private boolean favoritePic;
+
     @ManyToOne
     @JsonBackReference
     private User user;
 
-//    public SpacePic(SpacePicDto spacePicDto){
-//        if(spacePicDto.getImageUrl() != null){
-//            this.imageUrl = spacePicDto.getImageUrl();
-//        }
-//        if(spacePicDto.getDescription() != null){
-//            this.description = spacePicDto.getDescription();
-//        }
-//    }
+
+    public SpacePic(SpacePicDto spacePicDto){
+        if(spacePicDto.getImageUrl() != null){
+            this.imageUrl = spacePicDto.getImageUrl();
+        }
+        if(spacePicDto.getDescription() != null){
+            this.description = spacePicDto.getDescription();
+        }
+
+            this.favoritePic = spacePicDto.isFavoritePic();
+
+    }
 
 }
