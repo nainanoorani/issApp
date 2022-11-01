@@ -15,8 +15,10 @@ import java.util.Set;
 public class UserDto implements Serializable {
     private Long id;
     private String name;
+    private String password;
+
     private Set<SpacePicDto> spacePicDtoSet = new HashSet<>();
-    private Set<CrewMemberDto> crewMemberDtoSet = new HashSet<>();
+//    private Set<CrewMemberDto> crewMemberDtoSet = new HashSet<>();
 
     public UserDto(User user){
         if(user.getId() != null){
@@ -24,6 +26,9 @@ public class UserDto implements Serializable {
         }
         if(user.getName() != null){
             this.name = user.getName();
+        }
+        if(user.getPassword() != null){
+            this.password=user.getPassword();
         }
 
     }

@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 @Entity
-@Table(name="Crew Members")
+@Table(name="CrewMembers")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -33,27 +33,35 @@ public class CrewMember {
 
     @Column
     private String crewPic;
+
+    @Column
+    private boolean current;
 //    @ManyToOne
 //    @JsonBackReference
 //    private User user;
 
 
     public CrewMember(CrewMemberDto crewMemberDto){
+        if(crewMemberDto.getCrewId() != null){
+            this.crewId=crewMemberDto.getCrewId();
+        }
         if(crewMemberDto.getCrewName() != null){
             this.crewName = crewMemberDto.getCrewName();
         }
-    if(crewMemberDto.getCountry() != null){
-            this.country = crewMemberDto.getCountry();
+        if(crewMemberDto.getCountry() != null){
+                this.country = crewMemberDto.getCountry();
+            }
+        if(crewMemberDto.getSpecialization() != null){
+                this.specialization = crewMemberDto.getSpecialization();
+            }
+        if(crewMemberDto.getMission() != null){
+            this.specialization = crewMemberDto.getMission();
         }
-    if(crewMemberDto.getSpecialization() != null){
-            this.specialization = crewMemberDto.getSpecialization();
+        if(crewMemberDto.getCrewPic() != null){
+            this.crewPic = crewMemberDto.getCrewPic();
         }
-    if(crewMemberDto.getMission() != null){
-        this.specialization = crewMemberDto.getMission();
-    }
-    if(crewMemberDto.getCrewPic() != null){
-        this.crewPic = crewMemberDto.getCrewPic();
-    }
+        this.current = crewMemberDto.isCurrent();
+
     }
 
 

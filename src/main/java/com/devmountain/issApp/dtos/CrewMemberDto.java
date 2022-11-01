@@ -19,6 +19,8 @@ public class CrewMemberDto implements Serializable{
     private String mission;
 
     private String crewPic;
+
+    private boolean current;
 //    private UserDto userDto;
 
     public CrewMemberDto(CrewMember crewMember){
@@ -40,6 +42,8 @@ public class CrewMemberDto implements Serializable{
         if(crewMember.getCrewPic() != null){
             this.mission = crewMember.getCrewPic();
         }
+        this.current = crewMember.isCurrent();
+
     }
 }
 

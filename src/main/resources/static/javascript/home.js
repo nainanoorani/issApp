@@ -1,63 +1,70 @@
+
 //Cookie
 const cookieArr = document.cookie.split("=")
 const userId = cookieArr[1];
 
 //DOM Elements
-const submitForm = document.getElementById("note-form");
-const noteContainer = document.getElementById("note-container");
+const submitForm = document.getElementById("spacePic-form")
+const spacePicContainer = document.getElementById("spacePic-container")
 
-
-let noteBody = document.getElementById("note-input");
-let updateNoteBtn = document.getElementById("submit-button");
-
+//Modal Elements
+let spacePicBody = document.getElementById(`spacePic-body`)
+let updateSpacePicBtn = document.getElementById('update-spacePic-button')
 
 const headers = {
     'Content-Type': 'application/json'
 }
 
-const baseUrl = "http://localhost:8080/api/v1/notes/"
+const baseUrl = "http://localhost:8080/spacePic"
 
-function handleLogout(){
-    let c = document.cookie.split(";");
-    for(let i in c){
-    document.cookie = /^[^=]+/.exec(c[i])[0]+"=;expires=Thu, 01 Jan 1970 00:00:00 GMT"
-    }
- }
-
-const handleSubmit = async(e) => {
-    e.preventDefault();
+const handleSubmit = async (e) => {
+    e.preventDefault()
     let bodyObj = {
-    body: document.getElementById("note-input").value;
+        description: document.getElementById("spacePic-descrip").value;
+        spacePicUrl: document.getElementById("spacePic-url").value;
+        userId: userId;
     }
-    await addNote(bodyObj);
-    document.getElementById("note-input").value = '';
+    await addSpacePic(bodyObj);
+    document.getElementById("spacePic-url").value = '';
+    document.getElementById("spacePic-descrip").value = '';
+
 }
 
-async function addNote(obj) {
-    const response = await fetch(`${baseUrl}user/${userId}`,{
+async function addSpacePic(bodyObj) {
+    const response = await fetch(`${baseUrl}/user/${userId}`, {
         method: "POST",
-        body: JSON.stringify(obj),
+        body: JSON.stringify(bodyObj),
         headers: headers
     })
-    .catch(err => console.error(err.message))
-  if(response.status ==200){
-  return getNotes(userId);
-  }
+        .catch(err => console.error(err.message))
+    if (response.status == 200) {
+        return getSpacePics(userId);
+    }
 }
 
-async function getNotes(userId){
-    await fetch(`${baseUrl}user/${userId}`,{
+async function getSpacePics(userId) {
+    await fetch(`${baseUrl}/user/${userId}`, {
         method: "GET",
         headers: headers
     })
-    .then(response => response.json())
-    .then(data => createNoteCards(data))
-    .catch(err => console.error(err))
+        .then(response => response.json())
+        .then(data => createSpacePicCards(data))
+        .catch(err => console.error(err))
 }
 
-async function getNoteById(noteId){
-    await fetch(baseUrl + noteId, {
-        method:"GET",
+async function handleDelete(spacePicId, userId){
+    await fetch(baseUrl + spacePicId, {
+        method: "DELETE",
+        headers: headers
+    })
+        .catch(err => console.error(err))
+
+    return getSpacePics(userId);
+}
+
+async function getSpacePicById(spacePicId){
+    await fetch(baseUrl + spacePicId, {
+        method: "GET",
         headers: headers
     })
         .then(res => res.json())
@@ -65,11 +72,12 @@ async function getNoteById(noteId){
         .catch(err => console.error(err.message))
 }
 
-async function handleNoteEdit(noteId){
+async function handleSpacePicEdit(spacePicId){
     let bodyObj = {
-        id: noteId,
-        body: noteBody.value
+        id: spacePicId,
+        body: spacePicBody.value
     }
+
     await fetch(baseUrl, {
         method: "PUT",
         body: JSON.stringify(bodyObj),
@@ -77,53 +85,49 @@ async function handleNoteEdit(noteId){
     })
         .catch(err => console.error(err))
 
-    return getNotes(userId);
+    return getSpacePics(userId);
 }
 
-async function handleDelete(noteId){
-    await fetch(baseUrl + noteId, {
-    method: "DELETE",
-    headers: headers
-    })
-        .catch(err => console.error(err))
-
-    return getNotes(userId);
-}
-
-const createNoteCards = (array) => {
-    noteContainer.innerHTML = ''
+const createSpacePicCards = (array) => {
+    spacePicContainer.innerHTML = ''
     array.forEach(obj => {
-        let noteCard = document.createElement("div")
-        noteCard.classList.add("m-2")
-        noteCard.innerHTML = `
-            <div class="card d-flex" style="width: 18 rem; height: 18rem">
-                <div class="card-body d-flex flex-column   justify-content-between" style="height: available">
+        let spacePicCard = document.createElement("div")
+        spacePicCard.classList.add("m-2")
+        spacePicCard.innerHTML = `
+            <div class="card d-flex" style="width: 18rem; height: 18rem;">
+                <div class="card-body d-flex flex-column  justify-content-between" style="height: available">
                     <p class="card-text">${obj.body}</p>
                     <div class="d-flex justify-content-between">
                         <button class="btn btn-danger" onclick="handleDelete(${obj.id})">Delete</button>
-                        <button onclick="getNoteById(${obj.id})" type="button" class="btn btn-primary"
-                        data-bs-toggle="modal" data-bs-target="note-edit-modal">
+                        <button onclick="getSpacePicById(${obj.id})" type="button" class="btn btn-primary"
+                        data-bs-toggle="modal" data-bs-target="#spacePic-edit-modal">
                         Edit
                         </button>
                     </div>
                 </div>
             </div>
         `
-        noteContainer.append(noteCard);
+        spacePicContainer.append(spacePicCard);
     })
 }
-
-const populateModal = (obj) => {
-    noteBody.innerText = ''
-    noteBody.innerText = obj.body
-    updateNoteBtn.setAttribute('data-note-id', obj.id)
+function handleLogout(){
+    let c = document.cookie.split(";");
+    for(let i in c){
+        document.cookie = /^[^=]+/.exec(c[i])[0]+"=;expires=Thu, 01 Jan 1970 00:00:00 GMT"
+    }
 }
-//invoke methods
-getNotes(userId);
-submitForm.addEventListener("submit", handleSubmit)
-updateNoteBtn.addEventListener("click", (e)=>{
-    let noteId = e.target.getAttribute('data-note-id');
-    handleNoteEdit(noteId);
-})
 
-<a class="btn btn-danger navbar-btn" href="./login.html" onclick="handleLogout()">Logout</a>
+const populateModal = (obj) =>{
+    spacePicBody.innerText = ''
+    spacePicBody.innerText = obj.body
+    updateSpacePicBtn.setAttribute('data-spacePic-id', obj.id)
+}
+
+getSpacePics(userId);
+
+submitForm.addEventListener("submit", handleSubmit);
+
+updateSpacePicBtn.addEventListener("click", (e)=>{
+    let spacePicId = e.target.getAttribute('data-spacePic-id')
+    handleSpacePicEdit(spacePicId);
+})

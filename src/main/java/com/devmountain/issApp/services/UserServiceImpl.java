@@ -4,6 +4,7 @@ import com.devmountain.issApp.dtos.UserDto;
 import com.devmountain.issApp.entities.User;
 import com.devmountain.issApp.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -16,6 +17,9 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     //autowire any beans from config class
 
     @Override
@@ -23,7 +27,7 @@ public class UserServiceImpl implements UserService {
         List<String> response = new ArrayList<>();
         User user = new User(userDto);
         userRepository.saveAndFlush(user);
-        response.add("User Added Successfully");
+        response.add("http://localhost:8080/login.html");
         return response;
     }
 
@@ -32,7 +36,16 @@ public class UserServiceImpl implements UserService {
         List<String> response = new ArrayList<>();
         Optional<User> userOptional = userRepository.findByName(userDto.getName());
         if(userOptional.isPresent()){
-            response.add("User name exists");
+            if (passwordEncoder.matches(userDto.getPassword(), userOptional.get().getPassword())){
+                response.add("http://localhost:8080/home.html");
+                response.add(String.valueOf(userOptional.get().getId()));
+
+            } else{
+                response.add("Username or password incorrect");
+            }
+        }
+        else{
+            response.add("Username or password incorrect");
         }
         return response;
     }

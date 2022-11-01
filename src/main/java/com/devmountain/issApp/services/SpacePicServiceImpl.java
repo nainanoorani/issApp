@@ -34,21 +34,61 @@ public class SpacePicServiceImpl implements SpacePicService {
 
     }
 
+//    @Override
+//    @Transactional
+//    public void deleteSpacePicById(SpacePicDto spacePicDto, Long spacePicId){
+//        Optional<SpacePic> spacePicOptional = spacePicRepository.findById(spacePicDto.getImageId());
+//        spacePicOptional.ifPresent(spacePic -> deleteSpacePicById(spacePicDto, spacePicId));
+////        spacePicOptional.ifPresent(spacePic -> delete(spacePic));
+//    }
+
     @Override
     @Transactional
-    public void deleteSpacePicById(SpacePicDto spacePicDto, Long spacePicId){
-        Optional<SpacePic> spacePicOptional = spacePicRepository.findById(spacePicDto.getImageId());
-        spacePicOptional.ifPresent(spacePic -> deleteSpacePicById(spacePicDto, spacePicId));
+    public String deleteSpacePicById(Long spacePicId, Long userId){
+        String result="Incorrect user Id.";
+        Optional<SpacePic> spacePicOptional = spacePicRepository.findById(spacePicId);
+        if (spacePicOptional.isPresent()) {
+            SpacePic spacePic=spacePicOptional.get();
+            if (spacePic.getUser().getId() == userId) {
+                spacePicRepository.delete(spacePic);
+                result= "Deletion successful.";
+            }
+        }
+        return result;
     }
 
+   public String checkUserForDeletion(SpacePic spacePic, Long userId) {
+        if (spacePic.getUser().getId() == userId) {
+            spacePicRepository.delete(spacePic);
+            return "Deletion successful.";
+        } else {
+            return "Incorrect user Id.";
+        }
+    }
+
+
     //hardcode boolean as true. for find by favorite
+//    @Override
+//    @Transactional
+//    public void updateFavoriteSpacePic(SpacePicDto spacePicDto){
+//        Optional<SpacePic> spacePicOptional = spacePicRepository.findById(spacePicDto.getImageId());
+//        spacePicOptional.ifPresent(spacePic -> {
+//            //if false make it true
+//            if(spacePicDto.isFavoritePic()==false){
+//                spacePic.setFavoritePic(true);}
+//            //if true make it false
+//            else {
+//                spacePic.setFavoritePic(false);
+//            }
+//        });
+//    }
     @Override
     @Transactional
-    public void updateFavoriteASpacePic(SpacePicDto spacePicDto){
-        Optional<SpacePic> spacePicOptional = spacePicRepository.findById(spacePicDto.getImageId());
+    public void updateFavoriteSpacePic(Long spacePicId){
+        Optional<SpacePic> spacePicOptional = spacePicRepository.findById(spacePicId);
         spacePicOptional.ifPresent(spacePic -> {
             //if false make it true
-            if(spacePicDto.isFavoritePic()==false){
+            if(spacePic.isFavoritePic()==false){
                 spacePic.setFavoritePic(true);}
             //if true make it false
             else {

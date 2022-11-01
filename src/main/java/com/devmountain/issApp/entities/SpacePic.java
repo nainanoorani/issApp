@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 @Entity
-@Table(name="Space Pictures")
+@Table(name="SpacePic")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -33,7 +33,11 @@ public class SpacePic {
     private User user;
 
 
+
     public SpacePic(SpacePicDto spacePicDto){
+        if(spacePicDto.getImageId() != null){
+            this.imageId=spacePicDto.getImageId();
+        }
         if(spacePicDto.getImageUrl() != null){
             this.imageUrl = spacePicDto.getImageUrl();
         }

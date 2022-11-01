@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface CrewMemberService {
     @Transactional
-    List<CrewMemberDto> getAllCrewMembers();
+    List<CrewMemberDto> getCurrentCrewMembers();
 
     @Transactional
     List<CrewMemberDto> getCrewMembersByMission(String mission);

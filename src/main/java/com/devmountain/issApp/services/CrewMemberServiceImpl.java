@@ -17,8 +17,8 @@ public class CrewMemberServiceImpl implements CrewMemberService {
 
     @Override
     @Transactional
-    public List<CrewMemberDto> getAllCrewMembers(){
-        List<CrewMember> crewMemberList = crewMemberRepository.findAll();
+    public List<CrewMemberDto> getCurrentCrewMembers(){
+        List<CrewMember> crewMemberList = crewMemberRepository.findByCurrent(true);
         return crewMemberList.stream().map(crewMember->new CrewMemberDto(crewMember)).collect(Collectors.toList());
 
     }

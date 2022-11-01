@@ -9,7 +9,7 @@ import java.util.List;
 @Repository
 public interface SpacePicRepository extends JpaRepository<SpacePic, Long> {
 
-//    List<SpacePic> findByUser(User user);
+    List<SpacePic> findByImageId(Long spacePicId);
     //how to get all users
 //    List<SpacePic> findAll();
     List<SpacePic> findByUserAndFavoritePic(User user, boolean isFavorite);

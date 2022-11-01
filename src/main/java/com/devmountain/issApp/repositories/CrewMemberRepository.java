@@ -9,7 +9,7 @@ import java.util.List;
 
 @Repository
 public interface CrewMemberRepository extends JpaRepository<CrewMember, String> {
-    List<CrewMember> findAll();
+    List<CrewMember> findByCurrent(boolean current);
     List<CrewMember> findByMission(String mission);
 
 }

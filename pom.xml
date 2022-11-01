@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.devmountain</groupId>
-	<artifactId>noteApp</artifactId>
+	<artifactId>issApp</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>noteApp</name>
-	<description>an app that allows for creating, updating, and storing notes</description>
+	<name>issApp</name>
+	<description>an app that allows for creating, favoriting, and storing space pictures and retrieving ISS crew members</description>
 	<properties>
 		<java.version>11</java.version>
 	</properties>

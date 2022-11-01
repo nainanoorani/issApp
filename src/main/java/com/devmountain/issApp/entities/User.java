@@ -22,16 +22,23 @@ public class User {
     @Column(unique=true)
     private String name;
 
-    //check the cascade..and why hashset?
+    @Column
+    private String password;
+
+
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private Set<SpacePic> spacePicSet = new HashSet<>();
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    private Set<CrewMember> crewMemberSet = new HashSet<>();
+
+//    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+//    private Set<CrewMember> crewMemberSet = new HashSet<>();
 
 
     public User(UserDto userDto){
         if(userDto.getName() != null){
             this.name = userDto.getName();
+        }
+        if(userDto.getPassword() != null){
+            this.password = userDto.getPassword();
         }
 
     }

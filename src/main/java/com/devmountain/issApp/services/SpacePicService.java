@@ -11,11 +11,14 @@ public interface SpacePicService {
     void addSpacePic(SpacePicDto spacePicDto, Long userId);
 
     @Transactional
-    void deleteSpacePicById(SpacePicDto spacePicDto, Long spacePicId);
+//    void deleteSpacePicById(SpacePicDto spacePicDto, Long spacePicId);
+    String deleteSpacePicById(Long spacePicId, Long userId);
 
     //hardcode boolean as true. for find by favorite
     @Transactional
-    void updateFavoriteASpacePic(SpacePicDto spacePicDto);
+//    void updateFavoriteSpacePic(SpacePicDto spacePicDto);
+    void updateFavoriteSpacePic(Long spacePicId);
+
 
     List<SpacePicDto> getFavoriteSpacePicsByUser(Long userId);
 
