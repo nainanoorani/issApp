@@ -42,20 +42,26 @@ public class SpacePicServiceImpl implements SpacePicService {
 ////        spacePicOptional.ifPresent(spacePic -> delete(spacePic));
 //    }
 
-    @Override
-    @Transactional
-    public String deleteSpacePicById(Long spacePicId, Long userId){
-        String result="Incorrect user Id.";
-        Optional<SpacePic> spacePicOptional = spacePicRepository.findById(spacePicId);
-        if (spacePicOptional.isPresent()) {
-            SpacePic spacePic=spacePicOptional.get();
-            if (spacePic.getUser().getId() == userId) {
-                spacePicRepository.delete(spacePic);
-                result= "Deletion successful.";
-            }
-        }
-        return result;
-    }
+//    @Override
+//    @Transactional
+//    public String deleteSpacePicById(Long spacePicId, Long userId){
+//        String result="Incorrect user Id.";
+//        Optional<SpacePic> spacePicOptional = spacePicRepository.findById(spacePicId);
+//        if (spacePicOptional.isPresent()) {
+//            SpacePic spacePic=spacePicOptional.get();
+//            if (spacePic.getUser().getId() == userId) {
+//                spacePicRepository.delete(spacePic);
+//                result= "Deletion successful.";
+//            }
+//        }
+//        return result;
+//    }
+@Override
+@Transactional
+public void deleteSpacePicById(Long spacePicId){
+    Optional<SpacePic> spacePicOptional = spacePicRepository.findById(spacePicId);
+    spacePicOptional.ifPresent(note -> spacePicRepository.delete(note));
+}
 
    public String checkUserForDeletion(SpacePic spacePic, Long userId) {
         if (spacePic.getUser().getId() == userId) {
@@ -115,8 +121,15 @@ public class SpacePicServiceImpl implements SpacePicService {
         List<SpacePic> spacePicList = spacePicRepository.findAll();
         //is this correct? and same for get all crew members?
         return spacePicList.stream().map(spacePic->new SpacePicDto(spacePic)).collect(Collectors.toList());
+    }
 
-
+    @Override
+    public Optional<SpacePicDto> getSpacePicById(Long spacePicId){
+        Optional<SpacePic> spacePicOptional = spacePicRepository.findById(spacePicId);
+        if(spacePicOptional.isPresent()){
+            return Optional.of(new SpacePicDto(spacePicOptional.get()));
+        }
+        return Optional.empty();
     }
 
 }

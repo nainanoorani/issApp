@@ -6,6 +6,11 @@ const userId = cookieArr[1];
 //DOM Elements
 const submitForm = document.getElementById("spacePic-form")
 const spacePicContainer = document.getElementById("spacePic-container")
+//const allSpacePicHeader = document.querySelector('#spacePic-mode')
+//const allSpacePicBtn = document.getElementById("getAll-btn")
+const allSpacePicsContainer = document.getElementById("allSpacePics-container")
+const allPicsForm = document.getElementById("allSpacePics-form")
+const favPicsForm = document.getElementById("favSpacePics-form")
 
 //Modal Elements
 let spacePicBody = document.getElementById(`spacePic-body`)
@@ -20,9 +25,8 @@ const baseUrl = "http://localhost:8080/spacePic"
 const handleSubmit = async (e) => {
     e.preventDefault()
     let bodyObj = {
-        description: document.getElementById("spacePic-descrip").value;
-        spacePicUrl: document.getElementById("spacePic-url").value;
-        userId: userId;
+        description: document.getElementById("spacePic-descrip").value,
+        imageUrl: document.getElementById("spacePic-url").value
     }
     await addSpacePic(bodyObj);
     document.getElementById("spacePic-url").value = '';
@@ -38,11 +42,11 @@ async function addSpacePic(bodyObj) {
     })
         .catch(err => console.error(err.message))
     if (response.status == 200) {
-        return getSpacePics(userId);
+        return getUserSpacePics(userId);
     }
 }
 
-async function getSpacePics(userId) {
+async function getUserSpacePics(userId) {
     await fetch(`${baseUrl}/user/${userId}`, {
         method: "GET",
         headers: headers
@@ -52,18 +56,51 @@ async function getSpacePics(userId) {
         .catch(err => console.error(err))
 }
 
-async function handleDelete(spacePicId, userId){
-    await fetch(baseUrl + spacePicId, {
+const handleGetAllPics = async (e) => {
+    e.preventDefault()
+    await fetch(`${baseUrl}`, {
+        method: "GET",
+        headers: headers
+    })
+        .then(response => response.json())
+        .then(data => createSpacePicCards(data))
+//        .then(changeHeader)
+        .catch(err => console.error(err))
+}
+
+const handleGetFavoritePics = async (e) => {
+    e.preventDefault()
+    await fetch(`${baseUrl}/user/${userId}`, {
+        method: "GET",
+        headers: headers
+    })
+        .then(response => response.json())
+        .then(data => createSpacePicCards(data))
+//        .then(changeHeader)
+        .catch(err => console.error(err))
+}
+
+//async function handleDelete(spacePicId, userId){
+//    await fetch(`${baseUrl}/${spacePicId}/${userId}`, {
+//        method: "DELETE",
+//        headers: headers
+//    })
+//        .catch(err => console.error(err))
+//
+//    return getUserSpacePics(userId);
+//}
+async function handleDelete(spacePicId){
+    await fetch(`${baseUrl}/${spacePicId}`, {
         method: "DELETE",
         headers: headers
     })
         .catch(err => console.error(err))
 
-    return getSpacePics(userId);
+    return getUserSpacePics(userId);
 }
 
 async function getSpacePicById(spacePicId){
-    await fetch(baseUrl + spacePicId, {
+    await fetch(`${baseUrl}/${spacePicId}`, {
         method: "GET",
         headers: headers
     })
@@ -72,37 +109,33 @@ async function getSpacePicById(spacePicId){
         .catch(err => console.error(err.message))
 }
 
-async function handleSpacePicEdit(spacePicId){
-    let bodyObj = {
-        id: spacePicId,
-        body: spacePicBody.value
-    }
+async function changeSpacePicFavorite(spacePicId){
 
-    await fetch(baseUrl, {
+    await fetch(`${baseUrl}/${spacePicId}`, {
         method: "PUT",
-        body: JSON.stringify(bodyObj),
         headers: headers
     })
         .catch(err => console.error(err))
 
-    return getSpacePics(userId);
+    return getUserSpacePics(userId);
 }
 
 const createSpacePicCards = (array) => {
+    console.log(array);
     spacePicContainer.innerHTML = ''
     array.forEach(obj => {
+        console.log(obj);
         let spacePicCard = document.createElement("div")
         spacePicCard.classList.add("m-2")
         spacePicCard.innerHTML = `
             <div class="card d-flex" style="width: 18rem; height: 18rem;">
                 <div class="card-body d-flex flex-column  justify-content-between" style="height: available">
-                    <p class="card-text">${obj.body}</p>
+                    <img class="card-text" src="${obj.imageUrl}">
+
+                    <p class="card-text">${obj.description}</p>
                     <div class="d-flex justify-content-between">
-                        <button class="btn btn-danger" onclick="handleDelete(${obj.id})">Delete</button>
-                        <button onclick="getSpacePicById(${obj.id})" type="button" class="btn btn-primary"
-                        data-bs-toggle="modal" data-bs-target="#spacePic-edit-modal">
-                        Edit
-                        </button>
+                        <button class="btn btn-danger" onclick="handleDelete(${obj.imageId})">Delete</button>
+                        <button onclick="changeSpacePicFavorite(${obj.imageId})" type="button" class="btn btn-primary"> Favorite </button>
                     </div>
                 </div>
             </div>
@@ -118,16 +151,25 @@ function handleLogout(){
 }
 
 const populateModal = (obj) =>{
+console.log(obj);
     spacePicBody.innerText = ''
-    spacePicBody.innerText = obj.body
+    spacePicBody.innerText = obj
     updateSpacePicBtn.setAttribute('data-spacePic-id', obj.id)
 }
 
-getSpacePics(userId);
+//function changeHeader() {
+//console.log(allSpacePicHeader);
+//console.log(allSpacePicBtn);
+////      allSpacePicHeader.innerHTML = 'View Favorite Space Pictures';
+////      allSpacePicBtn.innerHTML= 'Favorites Only!';
+//}
+
+getUserSpacePics(userId);
 
 submitForm.addEventListener("submit", handleSubmit);
-
-updateSpacePicBtn.addEventListener("click", (e)=>{
-    let spacePicId = e.target.getAttribute('data-spacePic-id')
-    handleSpacePicEdit(spacePicId);
-})
+allPicsForm.addEventListener("submit", handleGetAllPics)
+favPicsForm.addEventListener("submit", handleGetFavoritePics)
+//updateSpacePicBtn.addEventListener("click", (e)=>{
+//    let spacePicId = e.target.getAttribute('data-spacePic-id')
+//    handleSpacePicFavorite(spacePicId);
+//})

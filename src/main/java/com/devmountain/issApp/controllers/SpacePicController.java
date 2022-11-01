@@ -29,23 +29,23 @@ public class SpacePicController {
         spacePicService.addSpacePic(spacePicDto, userId);
     }
 
-    //This is different from note app (passing in dto)
-//    @DeleteMapping("/{spacePicId}")
-//    public void deleteSpacePicById(@RequestBody SpacePicDto spacePicDto, @PathVariable Long spacePicId) {
-//        spacePicService.deleteSpacePicById(spacePicDto, spacePicId);
-//    }
 
     //how to make it so they can only delete their own uploaded pictures
+//    @DeleteMapping("/{spacePicId}/{userId}")
+//    public void deleteSpacePicById(@PathVariable Long spacePicId, @PathVariable Long userId) {
+//        spacePicService.deleteSpacePicById(spacePicId, userId);
+//    }
     @DeleteMapping("/{spacePicId}")
-    public void deleteSpacePicById(@PathVariable Long spacePicId, @PathVariable Long userId) {
-        spacePicService.deleteSpacePicById(spacePicId, userId);
+    public void deleteSpacePicById(@PathVariable Long spacePicId) {
+        spacePicService.deleteSpacePicById(spacePicId);
     }
 
-    //should I use dto or id here??
-//    @PutMapping
-//    public void updateFavoriteSpacePic(@RequestBody SpacePicDto spacePicDto) {
-//        spacePicService.updateFavoriteSpacePic(spacePicDto);
-//    }
+    @GetMapping("/{spacePicId}")
+    public void getSpacePicById(@PathVariable Long spacePicId) {
+        spacePicService.getSpacePicById(spacePicId);
+
+    }
+
     @PutMapping("/{spacePicId}")
     public void updateFavoriteSpacePic(@PathVariable Long spacePicId) {
         spacePicService.updateFavoriteSpacePic(spacePicId);
