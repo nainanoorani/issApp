@@ -40,7 +40,7 @@ public class CrewMemberDto implements Serializable{
             this.mission = crewMember.getMission();
         }
         if(crewMember.getCrewPic() != null){
-            this.mission = crewMember.getCrewPic();
+            this.crewPic = crewMember.getCrewPic();
         }
         this.current = crewMember.isCurrent();
 

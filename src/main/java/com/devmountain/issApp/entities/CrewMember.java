@@ -55,7 +55,7 @@ public class CrewMember {
                 this.specialization = crewMemberDto.getSpecialization();
             }
         if(crewMemberDto.getMission() != null){
-            this.specialization = crewMemberDto.getMission();
+            this.mission = crewMemberDto.getMission();
         }
         if(crewMemberDto.getCrewPic() != null){
             this.crewPic = crewMemberDto.getCrewPic();

@@ -46,8 +46,8 @@ public class SpacePicController {
 
     }
 
-    @PutMapping("/{spacePicId}")
-    public void updateFavoriteSpacePic(@PathVariable Long spacePicId) {
-        spacePicService.updateFavoriteSpacePic(spacePicId);
+    @PutMapping("/{userId}/{spacePicId}")
+    public void updateFavoriteSpacePic(@PathVariable Long spacePicId, @PathVariable Long userId) {
+        spacePicService.updateFavoriteSpacePic(spacePicId, userId);
     }
 }

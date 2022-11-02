@@ -21,7 +21,7 @@ public class CrewMemberController {
         return crewMemberService.getCurrentCrewMembers();
     }
 
-    @GetMapping("/crew/{mission}")
+    @GetMapping("/{mission}")
     public List<CrewMemberDto> getCrewMembersByMission(@PathVariable String mission){
         return crewMemberService.getCrewMembersByMission(mission);
     }

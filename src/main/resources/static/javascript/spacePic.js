@@ -125,10 +125,12 @@ const createSpacePicCards = (array) => {
     spacePicContainer.innerHTML = ''
     array.forEach(obj => {
         console.log(obj);
+        console.log(obj.userId);
         let spacePicCard = document.createElement("div")
         spacePicCard.classList.add("m-2")
+        if(userId==obj.userId){
         spacePicCard.innerHTML = `
-            <div class="card d-flex" style="width: 18rem; height: 18rem;">
+            <div class="card d-flex" style="width: 18rem; height: 40rem;">
                 <div class="card-body d-flex flex-column  justify-content-between" style="height: available">
                     <img class="card-text" src="${obj.imageUrl}">
 
@@ -138,8 +140,19 @@ const createSpacePicCards = (array) => {
                         <button id="fav-btn" onclick="changeSpacePicFavorite(${obj.imageId})" type="button" class="btn btn-primary"> Favorite </button>
                     </div>
                 </div>
-            </div>
-        `
+            </div>`
+            }
+            else{
+            spacePicCard.innerHTML = `
+                        <div class="card d-flex" style="width: 18rem; height: 18rem;">
+                            <div class="card-body d-flex flex-column  justify-content-between" style="height: available">
+                                <img class="card-text" src="${obj.imageUrl}">
+                                <p class="card-text">${obj.description}</p>
+                            </div>
+                        </div>`
+                        }
+
+
         spacePicContainer.append(spacePicCard);
     })
 }

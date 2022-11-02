@@ -90,16 +90,17 @@ public void deleteSpacePicById(Long spacePicId){
 //    }
     @Override
     @Transactional
-    public void updateFavoriteSpacePic(Long spacePicId){
+    public void updateFavoriteSpacePic(Long spacePicId, Long userId){
         Optional<SpacePic> spacePicOptional = spacePicRepository.findById(spacePicId);
         spacePicOptional.ifPresent(spacePic -> {
             //if false make it true
-            if(spacePic.isFavoritePic()==false){
+            if(spacePic.getUser().getId()==userId && spacePic.isFavoritePic()==false){
                 spacePic.setFavoritePic(true);}
             //if true make it false
-            else {
+            else if (spacePic.getUser().getId()==userId && spacePic.isFavoritePic()==true) {
                 spacePic.setFavoritePic(false);
             }
+            else{}
         });
     }
 

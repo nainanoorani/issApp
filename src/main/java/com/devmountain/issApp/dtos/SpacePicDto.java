@@ -20,6 +20,7 @@ public class SpacePicDto implements Serializable{
 
 
 
+
     public SpacePicDto(SpacePic spacePic){
         if(spacePic.getImageId() != null){
             this.imageId=spacePic.getImageId();

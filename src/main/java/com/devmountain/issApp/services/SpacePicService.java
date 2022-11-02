@@ -18,7 +18,7 @@ public interface SpacePicService {
     //hardcode boolean as true. for find by favorite
     @Transactional
 //    void updateFavoriteSpacePic(SpacePicDto spacePicDto);
-    void updateFavoriteSpacePic(Long spacePicId);
+    void updateFavoriteSpacePic(Long spacePicId, Long userId);
 
 
     List<SpacePicDto> getFavoriteSpacePicsByUser(Long userId);
