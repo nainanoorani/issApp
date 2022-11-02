@@ -8,7 +8,7 @@ const submitForm = document.getElementById("spacePic-form")
 const spacePicContainer = document.getElementById("spacePic-container")
 //const allSpacePicHeader = document.querySelector('#spacePic-mode')
 //const allSpacePicBtn = document.getElementById("getAll-btn")
-const allSpacePicsContainer = document.getElementById("allSpacePics-container")
+//const allSpacePicsContainer = document.getElementById("allSpacePics-container")
 const allPicsForm = document.getElementById("allSpacePics-form")
 const favPicsForm = document.getElementById("favSpacePics-form")
 
@@ -135,7 +135,7 @@ const createSpacePicCards = (array) => {
                     <p class="card-text">${obj.description}</p>
                     <div class="d-flex justify-content-between">
                         <button class="btn btn-danger" onclick="handleDelete(${obj.imageId})">Delete</button>
-                        <button onclick="changeSpacePicFavorite(${obj.imageId})" type="button" class="btn btn-primary"> Favorite </button>
+                        <button id="fav-btn" onclick="changeSpacePicFavorite(${obj.imageId})" type="button" class="btn btn-primary"> Favorite </button>
                     </div>
                 </div>
             </div>
@@ -157,19 +157,13 @@ console.log(obj);
     updateSpacePicBtn.setAttribute('data-spacePic-id', obj.id)
 }
 
-//function changeHeader() {
-//console.log(allSpacePicHeader);
-//console.log(allSpacePicBtn);
-////      allSpacePicHeader.innerHTML = 'View Favorite Space Pictures';
-////      allSpacePicBtn.innerHTML= 'Favorites Only!';
-//}
 
 getUserSpacePics(userId);
 
 submitForm.addEventListener("submit", handleSubmit);
 allPicsForm.addEventListener("submit", handleGetAllPics)
 favPicsForm.addEventListener("submit", handleGetFavoritePics)
-//updateSpacePicBtn.addEventListener("click", (e)=>{
-//    let spacePicId = e.target.getAttribute('data-spacePic-id')
-//    handleSpacePicFavorite(spacePicId);
-//})
+//document.getElementById("fav-btn").addEventListener('click', function handleClick() {
+//  btn.textContent = 'Unfavorite';
+//});
+
