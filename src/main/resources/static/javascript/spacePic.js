@@ -11,6 +11,7 @@ const spacePicContainer = document.getElementById("spacePic-container")
 //const allSpacePicsContainer = document.getElementById("allSpacePics-container")
 const allPicsForm = document.getElementById("allSpacePics-form")
 const favPicsForm = document.getElementById("favSpacePics-form")
+const userPicsForm = document.getElementById("userSpacePics-form")
 
 //Modal Elements
 let spacePicBody = document.getElementById(`spacePic-body`)
@@ -47,7 +48,7 @@ async function addSpacePic(bodyObj) {
 }
 
 async function getUserSpacePics(userId) {
-    await fetch(`${baseUrl}/user/${userId}`, {
+    await fetch(`${baseUrl}/myPic/${userId}`, {
         method: "GET",
         headers: headers
     })
@@ -80,15 +81,6 @@ const handleGetFavoritePics = async (e) => {
         .catch(err => console.error(err))
 }
 
-//async function handleDelete(spacePicId, userId){
-//    await fetch(`${baseUrl}/${spacePicId}/${userId}`, {
-//        method: "DELETE",
-//        headers: headers
-//    })
-//        .catch(err => console.error(err))
-//
-//    return getUserSpacePics(userId);
-//}
 async function handleDelete(spacePicId){
     await fetch(`${baseUrl}/${spacePicId}`, {
         method: "DELETE",
@@ -110,12 +102,18 @@ async function getSpacePicById(spacePicId){
 }
 
 async function changeSpacePicFavorite(spacePicId){
+    let favBtn=document.getElementById("fav-btn");
+    console.log(favBtn.value);
+    if(favBtn.value=="Favorite"){
+       favBtn.innerHTML="Unfavorite";
+    }else{
+        favBtn.innerHTML=="Favorite";
+    }
 
     await fetch(`${baseUrl}/${spacePicId}`, {
         method: "PUT",
         headers: headers
-    })
-        .catch(err => console.error(err))
+    }).catch(err => console.error(err))
 
     return getUserSpacePics(userId);
 }
@@ -125,15 +123,12 @@ const createSpacePicCards = (array) => {
     spacePicContainer.innerHTML = ''
     array.forEach(obj => {
         console.log(obj);
-        console.log(obj.userId);
         let spacePicCard = document.createElement("div")
         spacePicCard.classList.add("m-2")
-        if(userId==obj.userId){
+        if(userId==obj.userId && obj.favoritePic==false){
         spacePicCard.innerHTML = `
-            <div class="card d-flex" style="width: 18rem; height: 40rem;">
-                <div class="card-body d-flex flex-column  justify-content-between" style="height: available">
+            <div class="card d-flex" style="width: 18rem; ">
                     <img class="card-text" src="${obj.imageUrl}">
-
                     <p class="card-text">${obj.description}</p>
                     <div class="d-flex justify-content-between">
                         <button class="btn btn-danger" onclick="handleDelete(${obj.imageId})">Delete</button>
@@ -142,16 +137,28 @@ const createSpacePicCards = (array) => {
                 </div>
             </div>`
             }
+            else if(userId==obj.userId && obj.favoritePic==true){
+            spacePicCard.innerHTML = `
+                <div class="card d-flex" style="width: 18rem; ">
+                        <img class="card-text" src="${obj.imageUrl}">
+                        <p class="card-text">${obj.description}</p>
+                        <div class="d-flex justify-content-between">
+                            <button class="btn btn-danger" onclick="handleDelete(${obj.imageId})">Delete</button>
+                            <button id="fav-btn" onclick="changeSpacePicFavorite(${obj.imageId})" type="button" class="btn btn-primary"> Unfavorite </button>
+                        </div>
+                    </div>
+                </div>`
+            }
+
             else{
             spacePicCard.innerHTML = `
-                        <div class="card d-flex" style="width: 18rem; height: 18rem;">
-                            <div class="card-body d-flex flex-column  justify-content-between" style="height: available">
-                                <img class="card-text" src="${obj.imageUrl}">
-                                <p class="card-text">${obj.description}</p>
-                            </div>
-                        </div>`
-                        }
-
+                <div class="card d-flex" style="width: 18rem; ">
+                    <div class="card-body d-flex flex-column  justify-content-between" style="height: available">
+                        <img class="card-text" src="${obj.imageUrl}">
+                        <p class="card-text">${obj.description}</p>
+                    </div>
+                </div>`
+            }
 
         spacePicContainer.append(spacePicCard);
     })
@@ -170,13 +177,15 @@ console.log(obj);
     updateSpacePicBtn.setAttribute('data-spacePic-id', obj.id)
 }
 
+// document.querySelector('button').addEventListener('click', getFetch)
+
 
 getUserSpacePics(userId);
 
 submitForm.addEventListener("submit", handleSubmit);
-allPicsForm.addEventListener("submit", handleGetAllPics)
-favPicsForm.addEventListener("submit", handleGetFavoritePics)
-//document.getElementById("fav-btn").addEventListener('click', function handleClick() {
-//  btn.textContent = 'Unfavorite';
-//});
+allPicsForm.addEventListener("submit", handleGetAllPics);
+favPicsForm.addEventListener("submit", handleGetFavoritePics);
+userPicsForm.addEventListener("submit", getUserSpacePics);
+
+
 

@@ -19,6 +19,11 @@ public class SpacePicController {
         return spacePicService.getFavoriteSpacePicsByUser(userId);
     }
 
+    @GetMapping("/myPic/{userId}")
+    public List<SpacePicDto> getSpacePicsByUser(@PathVariable Long userId) {
+        return spacePicService.getSpacePicsByUser(userId);
+    }
+
     @GetMapping
     public List<SpacePicDto> getAllSpacePics() {
         return spacePicService.getAllSpacePics();
@@ -29,12 +34,6 @@ public class SpacePicController {
         spacePicService.addSpacePic(spacePicDto, userId);
     }
 
-
-    //how to make it so they can only delete their own uploaded pictures
-//    @DeleteMapping("/{spacePicId}/{userId}")
-//    public void deleteSpacePicById(@PathVariable Long spacePicId, @PathVariable Long userId) {
-//        spacePicService.deleteSpacePicById(spacePicId, userId);
-//    }
     @DeleteMapping("/{spacePicId}")
     public void deleteSpacePicById(@PathVariable Long spacePicId) {
         spacePicService.deleteSpacePicById(spacePicId);
@@ -46,8 +45,8 @@ public class SpacePicController {
 
     }
 
-    @PutMapping("/{userId}/{spacePicId}")
-    public void updateFavoriteSpacePic(@PathVariable Long spacePicId, @PathVariable Long userId) {
-        spacePicService.updateFavoriteSpacePic(spacePicId, userId);
+    @PutMapping("/{spacePicId}")
+    public void updateFavoriteSpacePic(@PathVariable Long spacePicId) {
+        spacePicService.updateFavoriteSpacePic(spacePicId);
     }
 }

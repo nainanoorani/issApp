@@ -18,7 +18,7 @@ public class SpacePicDto implements Serializable{
 
     private boolean favoritePic;
 
-
+    private Long userId;
 
 
     public SpacePicDto(SpacePic spacePic){
@@ -32,7 +32,9 @@ public class SpacePicDto implements Serializable{
             this.description = spacePic.getDescription();
         }
             this.favoritePic = spacePic.isFavoritePic();
-
+        if(spacePic.getUser().getId() != null){
+            this.userId = spacePic.getUser().getId();
+        }
 
     }
 }

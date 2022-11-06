@@ -72,7 +72,7 @@ const createCrewMemberCards = (array) => {
         crewMemberCard.classList.add("m-2")
         crewMemberCard.innerHTML = `
 
-            <div class="card d-flex" style="width: 18rem; height: 18rem;">
+            <div class="card d-flex" style="width: 18rem; ">
 
                     <img class="card-image" src="${obj.crewPic}">
                     <p class="card-title">${obj.crewName}</p>

@@ -18,10 +18,13 @@ public interface SpacePicService {
     //hardcode boolean as true. for find by favorite
     @Transactional
 //    void updateFavoriteSpacePic(SpacePicDto spacePicDto);
-    void updateFavoriteSpacePic(Long spacePicId, Long userId);
+    void updateFavoriteSpacePic(Long spacePicId);
 
 
     List<SpacePicDto> getFavoriteSpacePicsByUser(Long userId);
+
+    List<SpacePicDto> getSpacePicsByUser(Long userId);
+
 
     //return all space pictures added by any user
 

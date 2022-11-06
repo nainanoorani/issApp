@@ -12,22 +12,75 @@
 
 </head>
 <body>
-<a class="btn btn-danger navbar-btn" href="./login.html" onclick="handleLogout()">Logout</a>
 
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #0B3D91; height: 90px">
+    <a class="navbar-brand" style="margin-left: 30px;" href="./index.html">ISS </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="./index.html">Home <span class="sr-only"></span></a>
+            </li>
+            <li class="nav-item"> <a class="nav-link" href="./spacePic.html">Space Pictures</a></li>
+            <li> <a class="nav-link" href="./crew.html">Crew Members</a>
+            <li class="nav-item dropdown">
+                <a href="" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
+                    Account
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" id="login" href="./login.html">Login</a>
+                    <a class="dropdown-item" href="./register.html">Register</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/ISS_logo_2.png/120px-ISS_logo_2.png" style="position: absolute;
+    float: right; top: 0; right: 0px; width: 80px;">
+</nav>
+
+
+
+<br>
+<br>
 <div class="container text-center" id="iss-container">
     <h3 id="iss-title">International Space Station</h3>
-
     <img src="https://www.nasa.gov/sites/default/files/thumbnails/image/iss_expanded_view_large_text_2022b.png" height="800">
+    <b>The ISS is the largest manmade structure in space, weighing in at 400 tonnes and stretching across the span of a football field. It has 39 modules and was built piece by piece starting in 1998 and completed in 2011. The ISS has been occupied by astronauts and cosmonauts since 2000 with more than 258 visitors from 20 countries. It has 14 international partners, with NASA, Roscosmos (Russia) and the European Space Agency being the major partners, as well as JAXA (Japan) and the Canadian Space Agency. Current plans are to operate the station through 2030. </b>
+    <br>
+    <br>
+    <h4 id="iss-subtitle-1">How it works</h4>
 
-    <h4 id="iss-title-2">Where is the space station now?</h4>
-    <iframe src="http://wsn.spaceflight.esa.int/iss/index_portal.php" width="630" height="350">
+    <p>The International Space Station location is in orbit around the Earth, at an average altitude of 248 miles (400 kilometers). It circles the globe every 90 minutes at a speed of about 17,500 mph (28,000 km/h). In one day, the station travels about the distance it would take to go from Earth to the moon and back. </p>
+
+    <p>On the ISS, the 8 solar panels are used to collect sunlight
+        and convert this energy into 75-90 kW electricity. Radiators
+        are waffle-shaped panels used to get rid of extra heat that
+        builds up in the Station. The U.S. supplies power, while the Russians control major propulsion maneuvers.The ISS also has a robotic arm known as the
+        Canada Arm 2. It is used to help construct the Station and dock visiting vehicles
+        by grappling and moving modules or by moving astronauts into position to work on the Station. The Water Recovery System reduces crew dependence on water delivered by a cargo spacecraft by 65 percent – from about 1 gallon a day to a third of a gallon. </p>
+    <br>
+    <h4 id="iss-subtitle-2">The Modules</h4>
+    <p style="text-align:left"><b> Unity (Node 1):</b> connects the Russian and United States segments of the station, and is where crew eat meals together.</b></p>
+    <p style="text-align:left"><b>Harmony (Node 2):</b> is the “utility hub” that distributes resources from the truss structure and provides:
+        living quarters for 4 crew members, air, water, electrical power, data and video exchange with the ground and the rest of the ISS</p>
+    <p style="text-align:left"><b>Tranquility (Node 3):</b> has 6 berthing ports and accommodates: air revitalization, oxygen generation, carbon dioxide removal, water recovery system.
+        It also contains a bathroom and exercising equipment, including a treadmill and a weight-lifting device.</p>
+    <p style="text-align:left"><b>Zvezda module:</b> provides station with propulsion, living quarters, power distribution, data processing systems, flight control and communications systems. /p>
+    <p style="text-align:left"><b>Destiny (NASA), Columbus (ESA), Kibo (JAXA) modules: </b>the primary research laboratories for payloads that support experiments contributing to health, safety, and quality of life for people around the globe.It hosts over 34 equipment racks, 29 of which are for research. </p>
+
+    <br>
+    <h3 id="iss-title-2">Where is the space station now?</h3>
+    <iframe src="http://wsn.spaceflight.esa.int/iss/index_portal.php" width="630" height="350" style="width:1300px">
     </iframe>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
 
 <script src="./javascript/index.js" type="application/javascript"></script>
 </body>

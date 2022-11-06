@@ -5,6 +5,9 @@
 body {
   font-family: Arial, Helvetica, sans-serif;
 }
+#spacePic-container {
+    flex-grow:2;
+}
 
 /* Float four columns side by side */
 .column {
@@ -38,4 +41,8 @@ body {
   padding: 16px;
   text-align: center;
   background-color: #f1f1f1;
+}
+
+#sleep{
+width:30%;
 }

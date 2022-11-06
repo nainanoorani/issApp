@@ -29,7 +29,7 @@ public class SpacePicServiceImpl implements SpacePicService {
         Optional<User> userOptional = userRepository.findById(userId);
         SpacePic spacePic = new SpacePic(spacePicDto);
         userOptional.ifPresent(spacePic::setUser);
-        spacePic.setFavoritePic(true);
+        spacePic.setFavoritePic(false);
         spacePicRepository.saveAndFlush(spacePic);
 
     }
@@ -90,14 +90,14 @@ public void deleteSpacePicById(Long spacePicId){
 //    }
     @Override
     @Transactional
-    public void updateFavoriteSpacePic(Long spacePicId, Long userId){
+    public void updateFavoriteSpacePic(Long spacePicId){
         Optional<SpacePic> spacePicOptional = spacePicRepository.findById(spacePicId);
         spacePicOptional.ifPresent(spacePic -> {
             //if false make it true
-            if(spacePic.getUser().getId()==userId && spacePic.isFavoritePic()==false){
+            if(spacePic.isFavoritePic()==false){
                 spacePic.setFavoritePic(true);}
             //if true make it false
-            else if (spacePic.getUser().getId()==userId && spacePic.isFavoritePic()==true) {
+            else if (spacePic.isFavoritePic()==true) {
                 spacePic.setFavoritePic(false);
             }
             else{}
@@ -115,6 +115,18 @@ public void deleteSpacePicById(Long spacePicId){
         }
         return Collections.emptyList();
     }
+
+    @Override
+    public List<SpacePicDto> getSpacePicsByUser(Long userId){
+        Optional<User> userOptional = userRepository.findById(userId);
+        if(userOptional.isPresent()){
+            List<SpacePic> spacePicList = spacePicRepository.findByUserId(userId);
+            //arrow function. grab space pics and make new dto for each space pic.
+            return spacePicList.stream().map(spacePic->new SpacePicDto(spacePic)).collect(Collectors.toList());
+        }
+        return Collections.emptyList();
+    }
+
 
     //return all space pictures added by any user
     @Override

@@ -13,57 +13,83 @@
 </head>
 <body>
 
-<a class="btn btn-danger navbar-btn" href="./login.html" onclick="handleLogout()">Logout</a>
 
-<div class="container" id="allSpacePics-container">
-    <h3 id="spacePic-mode">View Space Pictures</h3>
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #0B3D91; height: 90px">
+    <a class="navbar-brand" style="margin-left: 30px;" href="./index.html">ISS </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="./index.html">Home <span class="sr-only"></span></a>
+            </li>
+            <li class="nav-item"> <a class="nav-link" href="./spacePic.html">Space Pictures</a></li>
+            <li> <a class="nav-link" href="./crew.html">Crew Members</a>
+            <li class="nav-item dropdown">
+                <a href="" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
+                    Account
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="./login.html">Logout</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/ISS_logo_2.png/120px-ISS_logo_2.png" style="position: absolute;
+    float: right; top: 0; right: 0px; width: 80px;">
+</nav>
+<br>
+<br>
+<div class="container">
+    <h3>Taking Pictures in Space</h3>
+    <p>The Cupola is an ESA-built observatory module of the International Space Station (ISS). Its seven windows are used to conduct experiments, dockings, and photograph Earth and space from the ISS.</p>
+    <div class="d-flex flex-row">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/ISS-27_Dmitri_Kondratyev_and_Paolo_Nespoli_photograph_the_Earth_through_the_Cupola.jpg/1024px-ISS-27_Dmitri_Kondratyev_and_Paolo_Nespoli_photograph_the_Earth_through_the_Cupola.jpg" style="width:40%; margin-left:90px">
+    <img src="https://static.scientificamerican.com/sciam/cache/file/76F3E11E-B4A2-41A3-AB0725947DC3ECC8_source.jpg" style="width:30%; margin-left:100px">
+    </div>
+    <br>
+    <p>Many of the most breathtaking images we have of other planets are taken by telescopes and orbiters. The James Webb Telescope that was launched on Christmas Day 2021 is the largest space telescope and orbits the Sun about 1 million miles from Earth to find the first galaxies that formed in the early universe using infrared imaging.</p>
+</div>
+<br>
+<div class="container">
+<h3 id="spacePic-mode">View Space Pictures</h3>
+<div class="d-flex flex-row justify-content-center">
+    <div class="container" id="allSpacePics-container">
     <form id="allSpacePics-form">
-        <button id="getAll-btn" type="submit" class="btn btn-primary mt-1" >Show Me Everything!</button>
+        <button id="getAll-btn" type="submit" class="btn btn-primary mt-1 p-2" >Show Me Everything</button>
     </form>
     <div id="allspacePic-container" class="container-fluid"></div>
 </div>
-<div class="container" id="favSpacePics-container">
-    <form id="favSpacePics-form">
-        <button id="showFav-btn" type="submit" class="btn btn-primary mt-1" >Show My Pictures!</button>
+<div class="container" id="userSpacePics-container">
+    <form id="userSpacePics-form">
+        <button id="showUser-btn" type="submit" class="btn btn-outline-primary mt-1 p-2" >Show My Pictures</button>
     </form>
 </div>
+<div class="container" id="favSpacePics-container">
+    <form id="favSpacePics-form">
+        <button id="showFav-btn" type="submit" class="btn btn-outline-primary mt-1 p-2" >Show Favorite Pictures</button>
+    </form>
+</div>
+</div>
+</div>
+
 
 <br>
 <div class="container" id="home-container">
     <h3>Add your Own Space Picture</h3>
-    <div id="spacePic-form-container">
-        <form id="spacePic-form">
-            <div class="form-group">
-                <textarea class="form-control" id="spacePic-url" placeholder="Enter image URL" rows="2"></textarea>
-                <textarea class="form-control" id="spacePic-descrip" placeholder="Add a description of the picture..." rows="5"></textarea>
-            </div>
-            <button id="submit-button" type="submit" class="btn btn-primary mt-1">Submit</button>
-        </form>
+    <form id="spacePic-form" style="margin:40px">
+        <div class="form-group">
+            <textarea class="form-control" id="spacePic-url" placeholder="Enter image URL" rows="1"></textarea>
+            <textarea class="form-control" id="spacePic-descrip" placeholder="Add a description of the picture..." rows="5"></textarea>
+        </div>
+        <button id="submit-button" type="submit" class="btn btn-success mt-1">Submit</button>
+    </form>
 
-        <div id="spacePic-container" class="container-fluid"></div>
-    </div>
 </div>
-
-
-<!-- Modal -->
-<!--<div class="modal fade" id="spacePic-favorite-modal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="spacePic-favorite-modal-title" aria-hidden="true">-->
-<!--    <div class="modal-dialog">-->
-<!--        <div class="modal-content">-->
-<!--            <div class="modal-header">-->
-<!--                <h5 class="modal-title" id="spacePic-favorite-modal-title">Favorite a space picture</h5>-->
-<!--                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
-<!--            </div>-->
-<!--            <div class="modal-body d-flex">-->
-<!--            <div class="modal-body d-flex">-->
-<!--                <textarea class="form-control" rows="5" id="spacePic-body"></textarea>-->
-<!--            </div>-->
-<!--            <div class="modal-footer">-->
-<!--                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>-->
-<!--                <button type="button" id="update-spacePic-button" class="btn btn-primary" data-bs-dismiss="modal">Save</button>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
+<div id="spacePic-container" class="d-flex flex-row bd-highlight mb-3"> </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"

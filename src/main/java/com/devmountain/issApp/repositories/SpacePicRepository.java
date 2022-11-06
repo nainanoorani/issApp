@@ -13,5 +13,7 @@ public interface SpacePicRepository extends JpaRepository<SpacePic, Long> {
     //how to get all users
 //    List<SpacePic> findAll();
     List<SpacePic> findByUserAndFavoritePic(User user, boolean isFavorite);
+    List<SpacePic> findByUserId(Long userId);
+
 
 }
