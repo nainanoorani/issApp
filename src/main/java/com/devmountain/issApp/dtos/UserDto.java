@@ -18,7 +18,6 @@ public class UserDto implements Serializable {
     private String password;
 
     private Set<SpacePicDto> spacePicDtoSet = new HashSet<>();
-//    private Set<CrewMemberDto> crewMemberDtoSet = new HashSet<>();
 
     public UserDto(User user){
         if(user.getId() != null){

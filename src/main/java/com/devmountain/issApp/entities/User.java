@@ -29,8 +29,6 @@ public class User {
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private Set<SpacePic> spacePicSet = new HashSet<>();
 
-//    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-//    private Set<CrewMember> crewMemberSet = new HashSet<>();
 
 
     public User(UserDto userDto){

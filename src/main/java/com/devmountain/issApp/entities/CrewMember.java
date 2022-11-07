@@ -1,7 +1,6 @@
 package com.devmountain.issApp.entities;
 
 import com.devmountain.issApp.dtos.CrewMemberDto;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -36,9 +35,7 @@ public class CrewMember {
 
     @Column
     private boolean current;
-//    @ManyToOne
-//    @JsonBackReference
-//    private User user;
+
 
 
     public CrewMember(CrewMemberDto crewMemberDto){

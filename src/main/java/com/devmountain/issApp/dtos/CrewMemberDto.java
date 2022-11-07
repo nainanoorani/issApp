@@ -21,7 +21,6 @@ public class CrewMemberDto implements Serializable{
     private String crewPic;
 
     private boolean current;
-//    private UserDto userDto;
 
     public CrewMemberDto(CrewMember crewMember){
         if(crewMember.getCrewId() != null){
