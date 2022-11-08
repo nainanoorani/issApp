@@ -15,7 +15,7 @@ const headers = {
     'Content-Type': 'application/json'
 }
 
-const baseUrl = "http://localhost:8080/crew"
+const baseUrl = "/crew"
 
 function getMission(){
 var e = document.getElementById("mission-select");

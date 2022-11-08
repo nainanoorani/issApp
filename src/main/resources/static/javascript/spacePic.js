@@ -21,7 +21,7 @@ const headers = {
     'Content-Type': 'application/json'
 }
 
-const baseUrl = "http://localhost:8080/spacePic"
+const baseUrl = "/spacePic"
 
 const handleSubmit = async (e) => {
     e.preventDefault()
