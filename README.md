@@ -24,10 +24,8 @@ Go to localhost:3000 to see the web app
 ## Link
 ### [:link: ISS App](https://youtu.be/U-HmJD5wwe8)
 
-## How to use the ISS App
-
-
 ## Author
 Naina Noorani is a software engineer in Houston, TX.
 
 
+https://iss-app-1.herokuapp.com/
